@@ -1,0 +1,31 @@
+{
+  "name": "node-docs-api",
+  "version": "0.0.1",
+  "description": "NodeJS Documentation API for mobiles",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodenica/node-docs-api.git"
+  },
+  "keywords": [
+    "node",
+    "documentation",
+    "api"
+  ],
+  "author": "Paulo McNally <paulomcnally@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nodenica/node-docs-api/issues"
+  },
+  "homepage": "https://github.com/nodenica/node-docs-api#readme",
+  "dependencies": {
+    "async": "2.0.0-rc.3",
+    "fs-extra": "0.29.0",
+    "marked": "0.3.5",
+    "request": "2.72.0"
+  }
+}
