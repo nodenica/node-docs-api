@@ -30,16 +30,20 @@ request(util.format(url.dist, 'index.json'), function (error, response, body) {
     // get list of files
     request(util.format(url.dist, util.format('%s/docs/api/index.json', version)), function (error, response, body) {
       if (!error && response.statusCode == 200) {
+
         var items = JSON.parse(body).desc;
+
         var modules = [];
         items.forEach(function (item) {
           if (item.type === 'text') {
             // spit string based http://rubular.com/r/O212WaPVqA
-            var match = item.text.match(/\[(.*)\]\((.*)\.html\)/);
-            modules.push({
-              title: match[1],
-              name: match[2],
-            });
+            var match = item.text.match(/\[(.*)\]\((.*)\.html\)/i);
+            if (match !== null) {
+              modules.push({
+                title: match[1],
+                name: match[2],
+              });
+            }
           };
         });
 
