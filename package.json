@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/nodenica/node-docs-api#readme",
   "dependencies": {
+    "archiver": "1.0.1",
     "async": "2.0.0-rc.3",
     "fs-extra": "0.29.0",
     "marked": "0.3.5",

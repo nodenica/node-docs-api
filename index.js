@@ -3,6 +3,27 @@ var fs = require('fs-extra');
 var marked = require('marked');
 var request = require('request');
 var util = require('util');
+var archiver = require('archiver');
+
+var output = fs.createWriteStream('docs.zip');
+var archive = archiver('zip');
+
+output.on('close', function () {
+  console.log(archive.pointer() + ' total bytes');
+  console.log('archiver has been finalized and the output file descriptor has closed.');
+
+  // copy dosc.zip to nodenicausercontent
+  fs.copySync('./docs.zip', '/home/polin/github/nodenica/nodenicausercontent/dist/docs.zip');
+
+  // copy index.json
+  fs.copySync('./dist/index.json', '/home/polin/github/nodenica/nodenicausercontent/index.json');
+});
+
+archive.on('error', function(err){
+  throw err;
+});
+
+archive.pipe(output);
 
 var url = {
   dist: 'https://nodejs.org/dist/%s',
@@ -16,7 +37,7 @@ try {
   fs.mkdirSync('./dist');
 }
 
-// compy assets to dist
+// copy assets to dist
 fs.copySync('./assets', './dist/assets');
 
 // check list of nodejs versions
@@ -92,6 +113,19 @@ request(util.format(url.dist, 'index.json'), function (error, response, body) {
                 }
               });
             }, function (err) {
+              // create zip file
+              archive.bulk([
+                {
+                  expand: true,
+                  cwd: 'dist',
+                  src: [
+                    '**/*'
+                  ],
+                  dot: true
+                }
+              ]);
+              archive.finalize();
+
               console.log('done');
             });
           }
