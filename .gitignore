@@ -34,3 +34,5 @@ node_modules
 
 # html files
 dist
+
+.zip
